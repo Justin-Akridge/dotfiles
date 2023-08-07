@@ -1,3 +1,4 @@
+" [TODO]: Set up quickfix for quick compile-edit time
 " Don't try to be vi compatible
 set nocompatible
 
