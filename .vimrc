@@ -2,6 +2,21 @@
 " Don't try to be vi compatible
 set nocompatible
 
+let &t_SI = "\e[6 q"
+let &t_EI = "\e[2 q"
+
+" maps ctrl-a to copy entire file
+map <C-a> ggVG
+
+" maps ctrl-s to save file
+map <C-s> :w <CR>
+
+" copy to clipboard
+map <C-c> "+y
+
+" removes highlight search
+nnoremap <F1> :set hlsearch!<CR>
+
 " Helps force plugins to load correctly when it is turned back on below
 filetype off
 
@@ -40,7 +55,7 @@ set expandtab
 set noshiftround
 
 " Cursor motion
-set scrolloff=3
+set scrolloff=5
 set backspace=indent,eol,start
 set matchpairs+=<:> " use % to jump between pairs
 runtime! macros/matchit.vim
@@ -52,11 +67,12 @@ func! MakeorGcc()
   :write
   if filereadable('makefile')
     :!make
-  else
-    :!g++ % -o %< && ./&&<
+  else 
+    :!clang++ % -o %< && ./%<
   endif
 endfunc
 nnoremap ' :call MakeorGcc()<cr>
+
 " Allow hidden buffers
 set hidden
 
@@ -81,9 +97,9 @@ set showmatch
 map <leader><space> :let @/=''<cr> " clear search
 
 " Remap help key.
-inoremap <F1> <ESC>:set invfullscreen<CR>a
-nnoremap <F1> :set invfullscreen<CR>
-vnoremap <F1> :set invfullscreen<CR>
+"inoremap <F1> <ESC>:set invfullscreen<CR>a
+"nnoremap <F1> :set invfullscreen<CR>
+"vnoremap <F1> :set invfullscreen<CR>
 
 " Textmate holdouts
 
@@ -96,6 +112,9 @@ set listchars=tab:▸\ ,eol:¬
 " set list " To enable by default
 " Or use your leader key + l to toggle on/off
 map <leader>l :set list!<CR> " Toggle tabs and EOL
+
+" Use mouse
+set mouse=a
 
 " Color scheme (terminal)
 set t_Co=256

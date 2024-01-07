@@ -1,5 +1,6 @@
 # Set up the prompt
-PS1="%F{green}~%/%F{reset}> "
+#PS1="%F{green}~%/%F{reset}> "
+PS1="%F{green}%~%F{reset}> "
 
 setopt histignorealldups sharehistory
 
