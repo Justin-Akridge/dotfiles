@@ -5,6 +5,9 @@ set nocompatible
 let &t_SI = "\e[6 q"
 let &t_EI = "\e[2 q"
 
+" ctrl-f or enter to search under cursor & n to go to next word
+"nnoremap <silent> <C-f> :let searchTerm = '\v<'.expand("<cword>").'>' <bar> let @/ = searchTerm <bar> echo '/'.@/ <bar> call histadd("search", searchTerm) <bar> set hls<cr>
+
 " maps ctrl-a to copy entire file
 map <C-a> ggVG
 
@@ -58,6 +61,7 @@ set noshiftround
 set scrolloff=5
 set backspace=indent,eol,start
 set matchpairs+=<:> " use % to jump between pairs
+
 runtime! macros/matchit.vim
 
 " Move up/down editor lines
@@ -65,12 +69,13 @@ nnoremap j gj
 nnoremap k gk
 func! MakeorGcc()
   :write
-  if filereadable('makefile')
+  if filereadable('Makefile')
     :!make
   else 
-    :!clang++ % -o %< && ./%<
+    :!clang++ -std=c++20 % -o %< && ./%<
   endif
 endfunc
+
 nnoremap ' :call MakeorGcc()<cr>
 
 " Allow hidden buffers
