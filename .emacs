@@ -1,63 +1,33 @@
-;;; -*- lexical-binding: t -*-
-
-;; Disable startup UI elements
 (setq inhibit-startup-screen t)
 (menu-bar-mode -1)
 (tool-bar-mode -1)
+(evil-mode 1)
 
-;; Indentation settings: use spaces, width = 4
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
+(setq indent-line-function 'insert-tab)
 
-;; Disable backup and autosave files
-(setq make-backup-files nil)     ;; no ~ files
-(setq auto-save-default nil)     ;; no #autosave# files
-(setq create-lockfiles nil)      ;; no .#lock files
+(setq make-backup-files nil)
+(setq auto-save-default nil)
+(setq create-lockfiles nil)
 
-;; Package management
-(require 'package)
-(setq package-archives
-      '(("gnu"    . "https://elpa.gnu.org/packages/")
-        ("nongnu" . "https://elpa.nongnu.org/nongnu/")
-        ("melpa"  . "https://melpa.org/packages/")))
-(package-initialize)
-
-;; Auto-install selected packages
-(unless package-archive-contents
-  (package-refresh-contents))
-
-(dolist (pkg '(web-mode go-mode gruber-darker-theme))
-  (unless (package-installed-p pkg)
-    (package-install pkg)))
-
-;; Theme
-(load-theme 'gruber-darker t)
-
-;; Relative line numbers
-(setq display-line-numbers-type 'relative)
-(global-display-line-numbers-mode t)
-
-;; Font settings
-(set-face-attribute 'default nil
-                    :family "Iosevka"
-                    :weight 'regular
-                    :height 162)
-
-;; Use web-mode for React/JSX and TSX
-(add-to-list 'auto-mode-alist '("\\.jsx?\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.tsx?\\'" . web-mode))
-
-;; Configure web-mode for JSX/TSX
-(setq web-mode-content-types-alist
-      '(("jsx" . "\\.js[x]?\\'")
-        ("tsx" . "\\.ts[x]?\\'")))
-
-;; Ensure global syntax highlighting
-(global-font-lock-mode t)
+;;(add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
+(load-theme 'solarized-dark t)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
- '(package-selected-packages '(web-mode gruber-darker-theme go-mode)))
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(custom-safe-themes
+   '("7fea145741b3ca719ae45e6533ad1f49b2a43bf199d9afaee5b6135fd9e6f9b8"
+     default))
+ '(nil nil t)
+ '(package-selected-packages
+   '(evil evil-visual-mark-mode solarized-theme typescript-mode)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
-)
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(default ((t (:family "Consolas" :background "#00141a" :foreground "#9cb0b3" :foundry "outline" :slant normal :weight regular :height 120 :width normal)))))
